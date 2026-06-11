@@ -1,0 +1,33 @@
+ Static hostname: devops-lab
+       Icon name: computer-laptop
+         Chassis: laptop 💻
+      Machine ID: d8663fe9c6c94efdacbab6b555ea138a
+         Boot ID: 827fbbb2aa3744aeb0126826d932c385
+Operating System: Linux Mint 22.3
+          Kernel: Linux 6.17.0-35-generic
+    Architecture: x86-64
+ Hardware Vendor: Lenovo
+  Hardware Model: Lenovo ideapad Y700-15ISK
+Firmware Version: CDCN54WW
+   Firmware Date: Tue 2017-06-13
+    Firmware Age: 8y 11month 2w 6d
+Linux devops-lab 6.17.0-35-generic #35~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 19:30:42 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+alisher
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           777M  1,6M  776M   1% /run
+efivarfs        100K   81K   15K  85% /sys/firmware/efi/efivars
+/dev/sda2       117G   12G  100G  11% /
+tmpfs           3,8G     0  3,8G   0% /dev/shm
+tmpfs           5,0M  8,0K  5,0M   1% /run/lock
+/dev/sda1       511M  6,2M  505M   2% /boot/efi
+/dev/sdb1       916G  8,5G  861G   1% /mnt/data
+tmpfs           777M  140K  777M   1% /run/user/1000
+               total        used        free      shared  buff/cache   available
+Mem:           7,6Gi       2,7Gi       3,3Gi       388Mi       2,1Gi       4,8Gi
+Swap:          2,0Gi          0B       2,0Gi
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0 119,2G  0 disk 
+├─sda1   8:1    0   512M  0 part /boot/efi
+└─sda2   8:2    0 118,7G  0 part /
+sdb      8:16   0 931,5G  0 disk 
+└─sdb1   8:17   0 931,5G  0 part /mnt/data
