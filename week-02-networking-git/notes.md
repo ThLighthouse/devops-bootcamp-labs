@@ -94,9 +94,13 @@ No questions fot this topic
 ## 3. SSH
 
 ### Commands
-ssh root@<IPAddress>/ssh UserName@SSHserver = Connect to a remote host
+ssh root@server_ip
 ssh-keygen -t rsa
 scp(secure copy) - allows to securely copy files and directories
+~/.ssh/known_hosts - list of available servers for to connect
+~/.ssh/authorized - list of public keys which are allowed to connect to this user
+nc -zv server_ip 22 - check if port is open to the server
+ssh -v user@server_ip - connect with wide debug output
 
 ### Key concepts
 2 ways to authenticate:
@@ -110,3 +114,25 @@ SSH Authentication comes AFTER the connection. (PORT 22).
 
 
 ### Questions
+
+
+-------------------------------------------------------------------
+
+
+## 4.Git
+
+### Commands
+git init - initialize repo
+git clone - clone repo locally
+git stash - temporary hide active working in purpose to change branches
+git stash pop - get changes back
+git revert <commit hash> - Creates a new commit to revert the old commit's changes
+git reset <commit hash> - removes old commit (-hard=removes totally, soft=make changes to the stash area)
+git merge - merge branches between each other
+
+### Key concepts
+For DevOps and CI/CD no need to intermediary Dev branch.
+
+### Questions
+
+
