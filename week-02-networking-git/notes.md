@@ -124,15 +124,52 @@ SSH Authentication comes AFTER the connection. (PORT 22).
 ### Commands
 git init - initialize repo
 git clone - clone repo locally
-git stash - temporary hide active working in purpose to change branches
+git stash - temporarily saves uncommitted changes, so you can switch branches.
 git stash pop - get changes back
 git revert <commit hash> - Creates a new commit to revert the old commit's changes
-git reset <commit hash> - removes old commit (-hard=removes totally, soft=make changes to the stash area)
+git reset <commit hash> - removes old commit (--hard=removes totally, --soft=make changes to the staging area)
 git merge - merge branches between each other
+ssh -T git@github.com - check if ssh connection is available to the repo
+git remote add origin <repo_URL> - connect local repo with remote repo.
+git push -u origin main - connect local branch with remote repo branch
+git rm -r --cached <file> - removes file from Git tracking, but keeps it locally. After that usually the file needs to be added to the .gitignore
+
 
 ### Key concepts
-For DevOps and CI/CD no need to intermediary Dev branch.
+Merge conflict happens when Git cannot automatically combine changes for two branches, usuallybecause the lines of the same file were changed differently.
+Best practice for that is pull and push often from remote repository.
+Breaking changes don't affect you until you pull the new code
+Every code change and file is tracked. You can revert commits.
 
+Working                 Staging             Local               Remote
+Directory               area                repo                repository
+        git add ----->  
+                        git commit -------->    
+                                                   git push ---------->
+                                                   git pull <----------
+
+Different Git Repositories available: github & gitlab
+Companies have own Git servers: Bitbucket
+.git - has info about repo itself(about branches, endpoint etc)
+Best practice is to create for each bugfix or feature its own branch
+Many companies have main branch and dev branch. Main - ready for peoduction.
+Develop branch - bugfixes and features are developing. 
+For CI/CD Trunk based development is preferable. (only main)
+Feature Based - Feature Driven Development with DEV branch - features and bugfixes are collected in develop branch.
+
+Git for DevOps
+1) IaC (Many K8s files, deployment to Kubernetes, Terraform and Ansible configuration files, python scripts). All files should be tracked, securely stored, shareable DevOps team
+2) CI/CD Pipeline and Build Automation (checkout code, test and build application, etc.
+Need intergration between the build automation tool and application git repository).
 ### Questions
+Не понял как происходит откат по коммиту(хеш) и зачем оно нужно
+Ответ:
+
+A---B---C 
+Где С-плохой коммит, в таком случае делается "git revert C" И Git не удаляет С-коммит, он создает новый коммит-D, который отменяет изменения из С.
+
+Это безопасно для командной работы.
+А для локального репозитория используется "git reset --hard/soft HEAD~<commit №>
+
 
 
