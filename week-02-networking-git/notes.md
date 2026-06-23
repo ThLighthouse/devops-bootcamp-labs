@@ -133,7 +133,7 @@ ssh -T git@github.com - check if ssh connection is available to the repo
 git remote add origin <repo_URL> - connect local repo with remote repo.
 git push -u origin main - connect local branch with remote repo branch
 git rm -r --cached <file> - removes file from Git tracking, but keeps it locally. After that usually the file needs to be added to the .gitignore
-
+git grep -n "<text>" - search for something in repo
 
 ### Key concepts
 Merge conflict happens when Git cannot automatically combine changes for two branches, usuallybecause the lines of the same file were changed differently.
