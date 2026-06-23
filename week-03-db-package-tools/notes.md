@@ -75,15 +75,27 @@ How to practice and how master DB skills now?
 2. Build Tools and Package Manager Tools
 
 ### Commands
-mvn install(maven) - ?
-gradle build(gradle) - ? 
+mvn install(maven) - runs Maven build lifecycle: validates, compiles, tests, packages the application and installs the built artifact into the local Maven repository.
+gradle build(gradle) - runs Gradle build tasks: compiles code, runs tests, creates artifact. Result in build/libs/ 
 npm install - install dependencies that are defined in package.json file.
 package.json is similiar to pom.xml in maven and build.gradle in gradle.
 In order to find libraries and modules for npm go to the NPM Repository.
 npm start - start the application
 npm stop - stop the app
 npm test - run the tests
-npm publish - publish the artifact
+This commands run if they are described in scripts inside package.json file.
+npm publish - publishes a package to npm registry.
+build artifact --> build Docker image --> push Docker Image to registry
+
+Source code is not the final deployable thing.
+
+Before running/deploying an application we usually need to:
+1. install dependencies
+2. test the app
+3. build/package the app
+4. create an artifact
+5. publish artifact somewhere
+6. deploy/run it
 
 Build Tools and Docker
 No need to build and move different artifact types (e.g Jar,War,Zip) - Just 1 artifact type - Docker Image.
@@ -118,5 +130,20 @@ Patterns in all of these tools:
 How to understand which packages to install for some app?
 How to find necessary packages?
  
+### How to know what packages are needed?
 
+For existing projects, dependencies are defined in dependency files:
+ - JavaScript: package.json, package-lock.json
+ - Java: pom.xml, build.gradle
+ - Python: requirements.txt, pyproject.toml
+
+DevOps Engineer usually does not guess dependencies manually. DevOps reads project files, documentation and build instructions.
+
+When choosing a new package, check:
+ - official docs
+ - popularity
+ - maintenance activity
+ - security
+ - license
+ - compatibility
 
