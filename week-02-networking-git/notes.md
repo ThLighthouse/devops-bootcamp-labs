@@ -2,174 +2,134 @@
 
 ## 1. Environment Variables
 
-### Commands 
-
-printenv - display all env variables 
-printenv USER - dissplay specific env var
-unset - delete the variable
-source ~/.bashrc = Load the new env vars into the current shell session
+### Commands
+- `printenv` — display all environment variables
+- `printenv USER` — display a specific environment variable
+- `unset VARIABLE` — delete the variable
+- `source ~/.bashrc` — reload shell configuration and apply new variables
 
 ### Key concepts
-KEY=value pairs
-Variables store information
-Environment Variables are available for the whole environment
-By convention, names are defined in UPPER CASE 
-User can change these environment variables values
-.bashrc - Variables set in this file are loaded whenever a bash login shell is entered (for the specific user)
+- Environment variables are stored as `KEY=value` pairs.
+- They provide configuration to programs without changing source code.
+- By convention, variable names use UPPERCASE letters.
+- `~/.bashrc` contains user-specific shell settings loaded for interactive shells.
+- `/etc/environment` contains global environment variables for all users.
 
-/etc/environment = set global env var 
+### Question
+- Не совсем очевидно, для чего вообще нужны переменные окружения.
+  - Ответ: environment variables позволяют передавать настройки программам извне, без изменения кода.
 
-### Questions
-Не совсем очевидно для чего вообще нужны переменные окружения
-Ответ: Environment Variables - это настройки для программ, которые передаются извне, без изменения кода.
-
--------------------------------------------------------------------
+---
 
 ## 2. Networking
 
-### Commands 
-ip a/ip addr - shows IP addresses of Network Interfaces
-ip route - shows gateway
-ss -tuln - active connections on PC.
-nslookup/dig - get an IP address any domain
-ping - checks if host is available on ICMP.
-curl - checks if the service is available
-nc -zv - checks port
+### Commands
+- `ip a` / `ip addr` — show IP addresses of network interfaces
+- `ip route` — show routing table and default gateway
+- `ss -tuln` — show active listening connections
+- `nslookup <domain>` / `dig <domain>` — resolve DNS names
+- `ping <host>` — test host availability with ICMP
+- `curl <url>` — test HTTP/HTTPS services
+- `nc -zv <host> <port>` — check if a TCP port is open
 
 ### Key concepts
-LAN - collection of devices connected together in one physical location(private house, office, campus)
-Each device has a unique IP(Internet Protocol) address.
-IP adddress - 32bit value.
-Switch - sits within the LAN and faciliates the connection between all the devices within the LAN.
-Router - sits between LAN and outside networks (WAN). Connects devices on LAN and WAN.
-Allows networked devices to access the Internet.
-Gateway - IP address of Router.
-Subnet - logical subdivision of an IP network. Subnetting - process of dividing a network into two or more networks.
-CIDR - Classless Inter-Domain Routing
-NAT(Network Address Translation) - key functionality of a router.
-Firewall - set of rules that prevents unauthorized access from entering a private network. Using Firewall Rulesyou can define, which requests are allowed.
-DNS(Domain Name System) - translates domain names to IP addresses.
-                     Root Domain
-                         |
-            Top Level Domain(.com, .net, .gov etc)
-                         |
-                      Domain
-                         |
-            Subdomain(bootcamp, workshops, courses)
+- LAN — collection of devices connected in a local network.
+- Each device has a unique IP address.
+- Switch connects devices within the LAN.
+- Router connects the LAN to other networks (WAN) and provides a gateway.
+- Subnet is a logical subdivision of a network.
+- CIDR is Classless Inter-Domain Routing.
+- NAT (Network Address Translation) allows private network IPs to use a public IP.
+- Firewall is a set of rules that controls network traffic.
+- DNS translates domain names to IP addresses.
 
-Subdomains - used for different appliacations that belong to organization. Each application may run on its dedicated server.
+### DNS structure
+- `com` — top-level domain (TLD)
+- `mycompany` — domain name
+- `api` — subdomain
 
-example: api.mycompany.com
-com - TLD
-mycompany - domain
-api - subdomain
+### Troubleshooting flow
+1. Is there an IP address? — `ip a`
+   - If not, there may be an issue with the interface, DHCP, or network configuration.
+2. Is the gateway configured? — `ip route`
+   - If no default route appears, the host cannot reach external networks.
+3. Does raw network connectivity work? — `ping 8.8.8.8`
+   - If ping fails, the issue may be network connectivity or firewall rules.
+4. Does DNS work? — `nslookup google.com` or `ping google.com`
+   - If ping by IP works but DNS lookup fails, the issue is DNS-related.
+5. Does the service work? — `curl http://localhost:3000` or `nc -zv localhost 3000`
+   - If the port is closed, the problem may be the application, firewall, or bind address.
 
-How to think as DevOps Engineer
+### Notes
+- Subdomains are used to separate applications or services within a domain.
 
-When Internet does not work or service is unavailable - DevOps Engineer thinks in categories like:
-
-1. Is there IP? - ip a
-if there is no IP address - troubles with interface/DHCP/Network
-
-2. Gateway exists? - ip route
-if there is no "default via" - means host does not know how to go outside
-
-3. Does the Network work correctly? - ping 8.8.8.8
-if doesn't - the Network/firewall issues
-
-4. Does DNS work? - nslookup google.com/ping google.com
-if ping works, but domain doesn't - issues with DNS
-
-5. Does the service work? - curl http://localhost:3000/nc -zv localhost 3000
-if server is pinging, but port doesn't open - possible issues with app itself or firewall, bind address
-
-### Questions
-
-No questions fot this topic
-
-
--------------------------------------------------------------------
-
+---
 
 ## 3. SSH
 
 ### Commands
-ssh root@server_ip
-ssh-keygen -t rsa
-scp(secure copy) - allows to securely copy files and directories
-~/.ssh/known_hosts - list of available servers for to connect
-~/.ssh/authorized - list of public keys which are allowed to connect to this user
-nc -zv server_ip 22 - check if port is open to the server
-ssh -v user@server_ip - connect with wide debug output
+- `ssh root@server_ip` — connect to a remote host
+- `ssh-keygen -t rsa` — generate a new SSH key pair
+- `scp` — secure copy files and directories between hosts
+- `nc -zv server_ip 22` — check if SSH port 22 is open
+- `ssh -v user@server_ip` — connect with verbose debug output
+
+### SSH files
+- `~/.ssh/known_hosts` — remote host fingerprints stored by SSH
+- `~/.ssh/authorized_keys` — public keys allowed to connect to the user account
 
 ### Key concepts
-2 ways to authenticate:
-1) Username & Password
-2) SSH Key Pair
+- Authentication methods:
+  1. username and password
+  2. SSH key pair
+- Private key is secret and stored securely on the client.
+- Public key can be shared with a remote server.
+- SSH authentication happens after the TCP connection is established.
 
-Private Key - Secret key. Is stored securely on the client machine
-Public Key - Public. Can be shared, e.g with the remote server
+---
 
-SSH Authentication comes AFTER the connection. (PORT 22).
-
-
-### Questions
-
-
--------------------------------------------------------------------
-
-
-## 4.Git
+## 4. Git
 
 ### Commands
-git init - initialize repo
-git clone - clone repo locally
-git stash - temporarily saves uncommitted changes, so you can switch branches.
-git stash pop - get changes back
-git revert <commit hash> - Creates a new commit to revert the old commit's changes
-git reset <commit hash> - removes old commit (--hard=removes totally, --soft=make changes to the staging area)
-git merge - merge branches between each other
-ssh -T git@github.com - check if ssh connection is available to the repo
-git remote add origin <repo_URL> - connect local repo with remote repo.
-git push -u origin main - connect local branch with remote repo branch
-git rm -r --cached <file> - removes file from Git tracking, but keeps it locally. After that usually the file needs to be added to the .gitignore
-git grep -n "<text>" - search for something in repo
+- `git init` — initialize a repository
+- `git clone <url>` — clone a repository locally
+- `git stash` — temporarily save uncommitted changes
+- `git stash pop` — restore stashed changes
+- `git revert <commit>` — create a new commit that undoes an earlier commit
+- `git reset <commit>` — reset HEAD to a previous commit (`--soft` keeps changes staged, `--hard` discards them)
+- `git merge` — combine branches
+- `ssh -T git@github.com` — verify GitHub SSH access
+- `git remote add origin <repo_URL>` — add remote repository
+- `git push -u origin main` — push local branch to remote
+- `git rm -r --cached <file>` — stop tracking a file without deleting it locally
+- `git grep -n "<text>"` — search text in tracked files
 
 ### Key concepts
-Merge conflict happens when Git cannot automatically combine changes for two branches, usuallybecause the lines of the same file were changed differently.
-Best practice for that is pull and push often from remote repository.
-Breaking changes don't affect you until you pull the new code
-Every code change and file is tracked. You can revert commits.
+- A merge conflict occurs when Git cannot automatically combine changes from different branches.
+- Best practice: pull and push frequently to avoid large, conflicting merges.
+- `git revert` is a safe way to undo a bad commit in shared history.
+- `git reset --hard` can remove commits locally, but should be used carefully.
 
-Working                 Staging             Local               Remote
-Directory               area                repo                repository
-        git add ----->  
-                        git commit -------->    
-                                                   git push ---------->
-                                                   git pull <----------
+### Workflow overview
+Working directory → staging area → local repository → remote repository
+- `git add` adds changes to the staging area
+- `git commit` saves changes to the local repository
+- `git push` sends commits to the remote repository
+- `git pull` updates the local repository from remote
 
-Different Git Repositories available: github & gitlab
-Companies have own Git servers: Bitbucket
-.git - has info about repo itself(about branches, endpoint etc)
-Best practice is to create for each bugfix or feature its own branch
-Many companies have main branch and dev branch. Main - ready for peoduction.
-Develop branch - bugfixes and features are developing. 
-For CI/CD Trunk based development is preferable. (only main)
-Feature Based - Feature Driven Development with DEV branch - features and bugfixes are collected in develop branch.
+### Branching practices
+- Create a branch for each feature or fix.
+- `main` is typically the production-ready branch.
+- `develop` can be used for ongoing work, but some teams prefer trunk-based development with only `main`.
 
-Git for DevOps
-1) IaC (Many K8s files, deployment to Kubernetes, Terraform and Ansible configuration files, python scripts). All files should be tracked, securely stored, shareable DevOps team
-2) CI/CD Pipeline and Build Automation (checkout code, test and build application, etc.
-Need intergration between the build automation tool and application git repository).
-### Questions
-Не понял как происходит откат по коммиту(хеш) и зачем оно нужно
-Ответ:
+### DevOps context
+- Git is essential for tracking infrastructure as code, CI/CD pipelines, and deployment automation.
+- Repositories store configuration, scripts, manifests, and pipeline definitions.
 
-A---B---C 
-Где С-плохой коммит, в таком случае делается "git revert C" И Git не удаляет С-коммит, он создает новый коммит-D, который отменяет изменения из С.
-
-Это безопасно для командной работы.
-А для локального репозитория используется "git reset --hard/soft HEAD~<commit №>
+### Question
+- Как происходит откат по коммиту и зачем он нужен?
+  - `git revert <commit>` создает новый коммит, который отменяет изменения из указанного коммита. Это безопасно для совместной работы.
+  - `git reset --hard HEAD~1` откатывает локальную ветку на один коммит и удаляет изменения из рабочего дерева.
 
 
 
