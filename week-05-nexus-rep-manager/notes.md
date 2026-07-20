@@ -26,7 +26,7 @@
 - Cleanup policies and scheduled tasks for old snapshots
 - Support for multiple formats such as Maven, npm, Docker, NuGet, PyPI, and Helm
 
-### FAQ: What is LDAP?
+### What is LDAP?
 
 LDAP (Lightweight Directory Access Protocol) is a protocol used to query and modify directory services such as user and group information. Repository managers use LDAP/AD integration to authenticate users and assign roles.
 
@@ -139,3 +139,16 @@ curl -u "$NEXUS_USER:$NEXUS_PASS" -X GET 'http://<NEXUS_HOST>:8081/service/rest/
 - Two Docker images can be two components but can share the same underlying assets
 
 The term “component” refers to any type or format of artifact stored in Nexus.
+
+## 9 — What the script fetch-node-app.sh does
+
+This script downloads a Node.js application package from Nexus, extracts it, installs dependencies, starts the app, and checks that it is running.
+
+In short, it:
+
+- connects to Nexus using the credentials from the environment variables `NEXUS_USER` and `NEXUS_PASS`
+- finds the required package in the `npm` repository
+- downloads the artifact archive and extracts it into the deployment folder
+- runs `npm install` in the application directory
+- starts the Node.js app in the background and saves its PID
+- verifies that the process is running and that the app responds on port `3000`
