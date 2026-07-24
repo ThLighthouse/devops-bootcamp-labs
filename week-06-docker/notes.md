@@ -45,3 +45,11 @@ Docker Engine:
 3. CLI(client to execute docker commands).
 
 ## Main Docker Commands
+
+`docker pull` - pulls te image from the repository.
+`docker run` - pull the image and start the container with that pulled image. (`-d`=run the container in a detached mode, `-p`=bind the ports for hosts and container). `--name`=give name for the container.
+`docker start/stop` - start/stop the container.
+`docker ps` - show the running containers. (`-a`=show all the containers, even stooped ones.)
+`docker images` - gives all the images that exist locally.
+`docker logs` - show the container logs. 
+`docker exec` - get the terminal of the running container. `it`=interactive terminal.
