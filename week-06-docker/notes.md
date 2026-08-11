@@ -68,6 +68,17 @@ There are 3 types of Docker Volumes. Usually volumes are created with `docker ru
 - Anonymous Volume: `docker run -v /var/lib/mysql/data`. For each container a folder is generated that gets mounted.
 - Named Volumes: `docker run -v name:/var/lib/mysql/data`. You can reference the volume by name. Should be used in poduction.
 
+### Docker Best Practices
+
+- Use Official Docker Images as Base Image. They are already built with best practices and makes Dockerfile much more easier.
+- Use Specific Image Version. By default images pulled in the latest version, it may break app. Need to specify which version you are pulling.
+- Use Small-Sized Official Image. Images could based on full-blown OS, it will caused much higher resource allocation.
+- Optimize Caching Image Layers. Order Dockerfile commands from least to most frequently changing.
+- Use .dockerignore to explicitly exclude files and folders.
+- Make use of "Multi-Stage Build".
+- Use the Least Priviliged User.
+- Scan Your Images for Vulnerabilities. `docker scout cves <image name>`
+
 ### For Demo project README.md file 
 # What I did?
 
@@ -76,7 +87,7 @@ There are 3 types of Docker Volumes. Usually volumes are created with `docker ru
 - got around with Docker commands
 - cloned to the local machine the demo project from `https://gitlab.com/twn-devops-bootcamp/latest/07-docker/js-app`
 - run `npm install` and `node server.js` to test the project locally
-- get `mondodb` and `mongo-express` images from dockerhub with docker run/pull commands 
+- get `mondodb` and `mongo-express` images from dockerhub with `docker run/pull` commands 
 - Started containers  with `docker run mongodb/mongo-express` and other parametars like `-d`(detached mode), `-p`(port binding), and `-e`(environment variables).
 - Got the status of the containers with `docker ps` commands.
 - Practiced to use Docker Compose
@@ -88,3 +99,4 @@ There are 3 types of Docker Volumes. Usually volumes are created with `docker ru
 - Also made `docker login` from dev server to pull the image from Nexus repository
 - Pull the image and edit and push again to the repository
 - Start docker compose on the dev server
+- Deployed Nexus as a Docker Container in new EC2 instance.
