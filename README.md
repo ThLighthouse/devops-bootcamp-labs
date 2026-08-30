@@ -12,6 +12,7 @@ This repo tracks my progress through DevOps fundamentals and practical exercises
 - `week-02-networking-git/` — Networking, SSH, Git workflows, environment variables, and configuration checks.
 - `week-03-db-package-tools/` — Databases, build tools, package managers, and related DevOps concepts.
 
+- `week-07-build-automation & CI/CD with Jenkins` -
 ## Notes
 
 Each week includes `notes.md` files with summaries, commands, and key concepts. Weekly README files describe the folder contents and how to review the work.
