@@ -40,8 +40,13 @@ Build Application -> Build tools or Docker available
 
 Publish Docker Image -> Store Credentials in Jenkins
 - To authenticate to a Docker Repository
-
+ 
 Jenkins User must have access to all these technologies and platforms.
 - Install Jenkins and prepare everything
 - Setup needs to be done only once
 - Plugins, credentials etc. can be user for different projects.
+
+###  Install Jenkins on the AWS EC2 and configure plugins
+
+I installed Jnekins as a docker container on the AWS EC2. Configured port `8080` and opened Jenkins UI.
+Then I added such plugins as maven via UI and added nodejs and npm plugins inside the container where jenkins running 
