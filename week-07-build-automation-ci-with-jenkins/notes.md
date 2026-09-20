@@ -49,4 +49,81 @@ Jenkins User must have access to all these technologies and platforms.
 ###  Install Jenkins on the AWS EC2 and configure plugins
 
 I installed Jnekins as a docker container on the AWS EC2. Configured port `8080` and opened Jenkins UI.
-Then I added such plugins as maven via UI and added nodejs and npm plugins inside the container where jenkins running 
+Then I added such plugins as maven via UI and added nodejs and npm plugins inside the container where jenkins is running.
+
+### Jenkinsfile Syntax
+
+`Post` attribute in Jenkinsfile. Executes some kind of logic/scripts after all stages are done. Inside the post there are different conditions:
+
+- `always` - this logic/script will be executed after all stages no matter what
+- `success` - execute when logic/script executed only when stages succeed.
+- `failure` - execute when stages failed.
+
+`Tools` attribute in Jenkinsfile. Access Build Tools for your projects. Maven, Gradle, jdk.
+
+```
+tools {
+    maven "maven-3.9"
+}
+```
+Build Tools Have to be pre-installed in Jenkins job configuration.
+
+Define `Conditionals` for each stages. You could define `when` expressions inside some steps. And this step will be executed when conditions are met.
+
+```
+stage("test") {
+    when {
+        expression {
+            env.BRANCH_NAME == 'dev' && CODE_CHANGES == true   ###Need to define at the beginning 
+        }
+    }
+    steps {
+        echo "building the application..."
+    }
+}
+```
+
+`Environment Variables` Jenkins provides some environmetal variables out of the box. So we can use them. We can find these variables in `"Jenkins_URL:Port/env-vars.html`.
+Also we can define our own environmental variables.
+Attribute called `environment`.
+
+```
+environment {
+    NEW_VERSION = '1.3.0`
+}
+```
+Can be used as usually with double "" quotes. It makes groovy identify our environment variable. 
+
+Using `Credentials` in Jenkinsfile
+
+- Define Credentials in Jenkins GUI (will be covered in more detail soon)
+- "credentials("credentials")" binds the credentials to your env variable
+
+```
+SERVER_CREDENTIALS = credentials('') ### For that we need the "Credentials Binding" and "Credentials Plugin" plugins.
+```
+as a paramater it takes the ID reference of the credentials in Jenkins.
+
+`Parameters` in Jenkinsfile.
+```
+parameters {
+    string(name: 'VERSION`, defaultValue: '', description: 'version to deploy on prod')
+    choice(name: 'VERSION', choices: ['1.1.0', 1.2.0', '1.3.0'], description: '')
+    booleanParam(name: 'executeTests', defaultValue: true, description: '')
+}
+```
+These parameters can useb in any stages:
+
+
+```
+stage("test") {
+    when {
+        expression {
+            params.executeTests
+        }
+    }
+    steps {
+        echo 'testing the application...'
+    }
+}
+```
