@@ -108,7 +108,7 @@ as a paramater it takes the ID reference of the credentials in Jenkins.
 ```
 parameters {
     string(name: 'VERSION`, defaultValue: '', description: 'version to deploy on prod')
-    choice(name: 'VERSION', choices: ['1.1.0', 1.2.0', '1.3.0'], description: '')
+    choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
     booleanParam(name: 'executeTests', defaultValue: true, description: '')
 }
 ```
@@ -124,6 +124,31 @@ stage("test") {
     }
     steps {
         echo 'testing the application...'
+    }
+}
+```
+
+## Using external scripts 
+Do not understand how to use them.
+
+### Input parameter in Jenkinsfile
+
+Input parameter allows user to choose which option should be applied to some build steps.
+
+```
+stage("deploy") {
+    input{
+        message "Select the environment to deploy to"
+        ok "Environment selected"
+        parameters{
+            choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: '')
+        }
+    }
+    steps {
+        script{
+            gv.deployApp()
+            echo "Deploying to ${ENV}"
+        }
     }
 }
 ```
