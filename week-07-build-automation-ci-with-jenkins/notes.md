@@ -48,8 +48,64 @@ Jenkins User must have access to all these technologies and platforms.
 
 ###  Install Jenkins on the AWS EC2 and configure plugins
 
-I installed Jnekins as a docker container on the AWS EC2. Configured port `8080` and opened Jenkins UI.
-Then I added such plugins as maven via UI and added nodejs and npm plugins inside the container where jenkins is running.
+I installed Jenkins as a docker container on the AWS EC2. Configured port `8080` and opened Jenkins UI.
+Then I added such plugins as maven via UI also added nodejs and npm plugins inside the container via docker CLI, where jenkins is running.
+These are the two steps to allow Jenkins use build tools. Install build tools via Jenkins UI or install build tools via docker CLI. 
+
+### Intro to Pipeline job
+
+- Suitable for CI/CD
+- Scripting - Pipeline as code
+
+As I have understood, pipeline job is more convenient regarding to the freestyle job. Pipeline job has such advantages as:
+
+- non UI configuration
+- one job with its stages
+- no need to download plugins for each job
+- write pipeline as a code(groovy script)
+
+For that we use file called `Jenkinsfile` which is writtten in `Groovy` Programming Language.
+Jenkinsfile could be written in a `Scripted` pipeline or in a `Declarative` pipeline.
+
+## Scripted pipeline
+
+- First syntax
+- Groovy engine
+- Advanced scritping capabalities, high flexibility
+- Difficult to start
+
+```
+node {
+    /// groovy script
+}
+```
+
+## Declarative pipeline
+
+- More recent addition
+- Easier to get started, but not that powerful
+- Pre-defined structure
+
+```
+pipeline {
+    agent any
+    stages {
+        stage("build") {
+            steps {
+
+            }
+        }
+    }
+}
+```
+
+- "pipeline" must be top-level
+- "agent" where to execute
+- "stages" where the work happens
+- "steps" execute some scripts/commands
+
+Relevant for Jenkins cluster
+
 
 ### Jenkinsfile Syntax
 
