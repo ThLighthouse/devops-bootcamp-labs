@@ -46,11 +46,6 @@ Jenkins User must have access to all these technologies and platforms.
 - Setup needs to be done only once
 - Plugins, credentials etc. can be user for different projects.
 
-###  Install Jenkins on the AWS EC2 and configure plugins
-
-I installed Jenkins as a docker container on the AWS EC2. Configured port `8080` and opened Jenkins UI.
-Then I added such plugins as maven via UI also added nodejs and npm plugins inside the container via docker CLI, where jenkins is running.
-These are the two steps to allow Jenkins use build tools. Install build tools via Jenkins UI or install build tools via docker CLI. 
 
 ### Intro to Pipeline job
 
