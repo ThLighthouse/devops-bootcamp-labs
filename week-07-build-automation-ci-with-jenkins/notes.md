@@ -170,7 +170,7 @@ These parameters can useb in any stages:
 stage("test") {
     when {
         expression {
-            params.executeTests
+            params.executeTests == True
         }
     }
     steps {
@@ -180,7 +180,7 @@ stage("test") {
 ```
 
 ## Using external scripts 
-Do not understand how to use them.
+Do not understand how to use them. I do not fully understand how it works, but seems to me that in Jenkinsfile inside the stages we could different scripts that could be bash scripts, gradle, python etc. So, in order to not to have all of them inside the Jenkinsfile we create another file with all our needed scripts there. Then inside the stages link to that file and exact script.  
 
 ### Input parameter in Jenkinsfile
 
@@ -203,3 +203,37 @@ stage("deploy") {
     }
 }
 ```
+
+### Jenkins Jobs Overview
+
+3 Types of Jenkins Jobs were reviewed. 
+
+`Freestyle Job` was created for the purpose of executing a single task.
+Test(Freestyle job) -> Build(Freestyle job) -> Deploy(Freestyle job)
+
+`Pipeline Job` was created to have one single job for all the stages and has an overwiew of exaclty which stages executed in pipeline build.
+Test -> Build -> Deploy (all in one pipeline)
+Better solution for CI/CD. One regular pipeline is meant for one single branch(feature or bugfix, etc)
+
+`Mutli-Branch Pipeline Job` is parent of Pipeline Jobs and is created to cover with pipelines all branches that are in the project repository.
+Multi-Branch Pipeline -> pipeline(main), pipeline(develop), pipeline(bugfix). 
+
+### Credentials in Jenkins
+
+There are two different scopes of credentials:
+
+- System
+- Global
+- Project(Limited to project, ONLY with multibranch pipeline)
+
+System scope is only available on Jenkins server. System credentials are not visible/accessible by Jenkins jobs. Global credentials are visible and accessible everywhere, they are accessible to the Jenkins admins and all the build jobs.
+
+There are types of credentials:
+
+- Username with password
+- GitHub App
+- SSH Username with private key
+- Secret file
+- Secret text
+- Certificate
+Also new types of credentials could be added based on plugins.
